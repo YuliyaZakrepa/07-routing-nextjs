@@ -16,9 +16,9 @@ await queryClient.prefetchQuery({
 })
 return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-<Modal>
+
     <NotePreviewClient/>
-</Modal>
+
     </HydrationBoundary>
 )
 

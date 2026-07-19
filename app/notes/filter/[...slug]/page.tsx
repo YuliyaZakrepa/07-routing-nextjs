@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 interface NotesProps {
   searchParams: Promise<{ search?: string; page?: string }>;
-  params: Promise<{ slug?: string[]}>;
+  params: Promise<{ slug: string[]}>;
 }
 
 export default async function Notes({ searchParams, params }: NotesProps) {

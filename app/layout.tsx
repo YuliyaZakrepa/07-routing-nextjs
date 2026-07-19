@@ -33,8 +33,8 @@ export default function RootLayout({
         <TanStackProvider>
         <Header />
         <main>
-          {modal}
           {children}
+           {modal}
           </main>
         <Footer />
         </TanStackProvider>
