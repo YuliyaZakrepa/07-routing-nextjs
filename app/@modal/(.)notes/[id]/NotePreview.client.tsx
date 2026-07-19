@@ -1,10 +1,10 @@
 "use client";
-import css from "./NoteDetails.module.css";
-import { useParams, useRouter } from "next/navigation";
+import css from "./NotePreview.module.css";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { fetchNoteById } from "@/lib/api";
-
-export default function NoteDetailsClient() {
+export default function NotePreviewClient() {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["note", id],
@@ -13,7 +13,6 @@ export default function NoteDetailsClient() {
     refetchOnMount: false,
   });
   const router = useRouter();
-
   return (
     <main className={css.main}>
       <div className={css.container}>

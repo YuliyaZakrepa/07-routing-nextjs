@@ -10,16 +10,21 @@ import { fetchNotes } from "@/lib/api";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { NoteTag } from "@/types/note";
 
-export default function NotesClient() {
+interface NotesClientProps{
+  tag?: NoteTag|undefined;
+}
+export default function NotesClient({tag}:NotesClientProps) {
   const perPage = 12;
-  const [search, setSearch] = useState<string | "">("");
+  const [search, setSearch] = useState<string>('');
   const [page, setPage] = useState<number>(1);
+  
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { data, isSuccess } = useQuery({
-    queryKey: ["notes", search, page, perPage],
-    queryFn: () => fetchNotes(search, page, perPage),
+    queryKey: ["notes", search, page, perPage,tag],
+    queryFn: () => fetchNotes(search, page, perPage,tag),
     retry: false,
     placeholderData: keepPreviousData,
     refetchOnMount: false,
@@ -36,6 +41,7 @@ export default function NotesClient() {
   const handleSearch = useDebouncedCallback((search: string) => {
     setSearch(search);
     setPage(1);
+    
   }, 1000);
 
   return (
@@ -61,7 +67,7 @@ export default function NotesClient() {
         )}
       </div>
       {isModalOpen && (
-        <Modal onClose={handleCloseModal}>
+        <Modal >
           {<NoteForm onClose={handleCloseModal} />}
         </Modal>
       )}
